@@ -7,11 +7,14 @@ app.set('view engine', 'ejs');
 app.get("/:name/:language", (request, response) => {
    var name = request.params.name;
    var language = request.params.language;
+   var showMsg = true;
+
    response.render("index",{
       name: name,
       language: language,
       company: "Guia do programador",
-      subscribes: 8000
+      subscribes: 8000,
+      msg: showMsg
    });
 });
 
