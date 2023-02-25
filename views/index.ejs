@@ -24,6 +24,12 @@
      <h3> There isn't any error!</h3>
    <%}%>
 
+   <% products.forEach(function(product){  %>
+        <hr>
+       <h3><%= product.name %></h3>
+        <h4><%= product.price %></h4>
+        
+   <% }) %>
     
     
     
