@@ -3,6 +3,8 @@ const app = express();
 
 //using EJS as view engine
 app.set('view engine', 'ejs');
+app.use(express.static("public"));
+
 
 //variables and get method settings
 app.get("/:name/:language", (request, response) => {
