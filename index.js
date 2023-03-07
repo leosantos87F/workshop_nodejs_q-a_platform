@@ -9,4 +9,8 @@ app.get("/", (request, response) => {
   response.render("index");
 });
 
+app.get("/ask", (request, response) => {
+  response.render("question");
+});
+
 app.listen(4000,() => {console.log("App is working now...");});
