@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+const Question = require("./database/Question");
 
 //Database connection schema authenticate
 connection.authenticate()
@@ -21,7 +22,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get("/", (request, response) => {
-  response.render("index");
+  Question.findAll({ raw: true}).then(questions => {
+    response.render("index", {
+      questions: questions
+    });
+  });
+  
 });
 
 app.get("/question", (request, response) => {
@@ -31,7 +37,13 @@ app.get("/question", (request, response) => {
 app.post("/savequestion",(request, response) => {
   var title = request.body.title;
   var description = request.body.description;
-  response.send("Form has been received! title " + title + " " + " description " + description);
+
+  Question.create({
+    title: title,
+    description: description
+  }).then(() => {
+     response.redirect("/");
+  });
 });
 
 
