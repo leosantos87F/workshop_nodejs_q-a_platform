@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.get("/", (request, response) => {
+app.get("/", (request, response) => {  
   Question.findAll({ raw: true, order:[
     ['id','DESC']
   ]}).then(questions => {
@@ -47,6 +47,22 @@ app.post("/savequestion",(request, response) => {
      response.redirect("/");
   });
 });
+
+app.get("/question/:id",(request, response) => {
+  var id = request.params.id;
+  Question.findOne({
+    where: {id: id}
+  }).then(question => {
+    if (question != undefined){ //question was found
+      response.render("questionPage",{
+        question: question
+      });
+    }else{  //question is not found.
+      response.redirect("/");
+    }
+  });
+});
+
 
 
 app.listen(4000,() => {console.log("App is working now...");});
