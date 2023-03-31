@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 const Question = require("./database/Question");
+const Answer = require("./database/Answer");
 
 //Database connection schema authenticate
 connection.authenticate()
@@ -63,6 +64,17 @@ app.get("/question/:id",(request, response) => {
   });
 });
 
+//questionPage.ejs form route
+app.post("/answer", (request, response) => {
+      var body = request.body.body;
+      var questionId = request.body.question;
+      Answer.create({
+        body: body,
+        questionId : questionId
+      }).then(() => {
+          response.redirect("/question/" + questionId);
+        });
+});
 
 
 app.listen(4000,() => {console.log("App is working now...");});

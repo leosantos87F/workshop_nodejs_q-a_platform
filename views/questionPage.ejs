@@ -6,6 +6,13 @@
         <h1> <%= question.title %></h1>
         <p><%= question.description %></p>
         <hr>
+        <form method="POST" action="/answer">
+            <h3>Reply</h3>
+            <label>Answer: </label>
+            <textarea placeholder="Type your answer" class="form-control" name="body"></textarea>
+            <input type="hidden" name="question" value="<%= question.id%>">
+            <button type="submit" class="btn btn-primary">Reply</button>
+        </form>
     </div>
 </body>
 <%- include('./partials/footer.ejs'); %>
