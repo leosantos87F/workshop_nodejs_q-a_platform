@@ -55,9 +55,18 @@ app.get("/question/:id",(request, response) => {
     where: {id: id}
   }).then(question => {
     if (question != undefined){ //question was found
+
+     Answer.findAll({
+      where: {questionId : question.id},
+      order:[
+        ['id', 'DESC']
+      ]
+     }).then(answers => {
       response.render("questionPage",{
-        question: question
+        question: question,
+        answers: answers
       });
+    });
     }else{  //question is not found.
       response.redirect("/");
     }
